@@ -2,10 +2,11 @@ name: SonarCloud analysis
 
 on:
   push:
-    branches: [ "main", "feature*" ]
+    branches: [ "main", "develop","feature*" ]
   pull_request:
-    branches: [ "main", "feature*" ]
+    branches: [ "main", "develop","feature*" ]
   workflow_dispatch:
+    branches: [ "main", "develop","feature*" ]
 
 permissions:
   pull-requests: read
@@ -13,7 +14,6 @@ permissions:
 jobs:
   Analysis:
     runs-on: ubuntu-latest
-
     steps:
       - name: Analyze with SonarCloud
         uses: SonarSource/sonarcloud-github-action@master
@@ -21,9 +21,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-            args: >
-              -Dsonar.projectKey=MariaVasquez_user-chamomile
-              -Dsonar.organization=mariavasquez
-              -Dsonar.java.binaries=target/classes/
-              -Dsonar.sourceEncoding=UTF-8
-              -Dsonar.verbose=true
+          args: >
+            -Dsonar.projectKey=MariaVasquez_user-chamomile
+            -Dsonar.organization=mariavasquez
+            -Dsonar.java.binaries=target/classes/
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.verbose=true
