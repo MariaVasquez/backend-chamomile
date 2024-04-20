@@ -22,9 +22,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
         with:
           args:
-            -Dsonar.projectKey=user 
+            -Dsonar.projectKey=user-chamomile
             -Dsonar.organization=mm.vasquez
             -Dsonar.sources=src/
-            -Dsonar.tests=src/
+            -Dsonar.tests=test/
             -Dsonar.java.binaries=target/classes/
             -Dsonar.verbose=true
