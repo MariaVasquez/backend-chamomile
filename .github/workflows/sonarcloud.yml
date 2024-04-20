@@ -27,4 +27,5 @@ jobs:
             -Dsonar.java.binaries=target/classes/
             -Dsonar.sourceEncoding=UTF-8
             -Dsonar.verbose=true
-            -Dsonar.coverage.jacoco.xmlReportPaths=target/report/jacoco.xml
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+            -Dsonar.scm.provider=git
