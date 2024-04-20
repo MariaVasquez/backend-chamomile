@@ -2,9 +2,9 @@ name: SonarCloud analysis
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "feature*" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "feature*" ]
   workflow_dispatch:
 
 permissions:
@@ -20,11 +20,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
-        with:
-          args:
-            -Dsonar.projectKey=user-chamomile
-            -Dsonar.organization=mm.vasquez
-            -Dsonar.sources=src/
-            -Dsonar.tests=test/
-            -Dsonar.java.binaries=target/classes/
-            -Dsonar.verbose=true
