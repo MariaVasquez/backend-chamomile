@@ -22,6 +22,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
             args: >
-              -Dsonar.projectKey=user-chamomile
+              -Dsonar.projectKey=MariaVasquez_user-chamomile
               -Dsonar.organization=mm.vasquez
               -Dsonar.verbose=true
