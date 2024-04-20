@@ -25,6 +25,6 @@ jobs:
             -Dsonar.projectKey=user 
             -Dsonar.organization=mm.vasquez
             -Dsonar.sources=src/
-            -Dsonar.tests=src/test/
+            -Dsonar.tests=src/
             -Dsonar.java.binaries=target/classes/
             -Dsonar.verbose=true
