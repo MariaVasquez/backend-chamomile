@@ -21,7 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-            projectBaseDir: ../app/src
+            projectBaseDir: ../../src
             args: >
               -Dsonar.projectKey=user-chamomile
               -Dsonar.organization=mm.vasquez
