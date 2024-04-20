@@ -24,4 +24,8 @@ jobs:
             args: >
               -Dsonar.projectKey=MariaVasquez_user-chamomile
               -Dsonar.organization=mariavasquez
+              -Dsonar.sources=src/
+              -Dsonar.tests=test/
+              -Dsonar.java.binaries=target/classes/
+              -Dsonar.sourceEncoding=UTF-8
               -Dsonar.verbose=true
