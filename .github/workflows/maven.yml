@@ -10,9 +10,9 @@ name: user chamomile
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   build:
@@ -29,3 +29,11 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean install
+
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@main
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+
