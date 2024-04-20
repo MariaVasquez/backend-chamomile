@@ -25,6 +25,6 @@ jobs:
             -Dsonar.projectKey=user 
             -Dsonar.organization=mm.vasquez
             -Dsonar.sources=lib/
-            -Dsonar.test.exclusions=tests/**
-            -Dsonar.tests=tests/
+            -Dsonar.test.exclusions=test/**
+            -Dsonar.tests=test/
             -Dsonar.verbose=true
