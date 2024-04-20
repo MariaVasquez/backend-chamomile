@@ -20,7 +20,7 @@
         <sonar.tests>src/test/java</sonar.tests>
         <sonar.java.binaries>target/classes</sonar.java.binaries>
         <sonar.coverage.jacoco.xmlReportPaths>
-            ../user-chamomile/target/report/jacoco.xml
+            ./user-chamomile/target/site/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <dependencies>
@@ -144,6 +144,11 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
+                                <configuration>
+                                    <formats>
+                                        <format>XML</format>
+                                    </formats>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>post-unit-test</id>
