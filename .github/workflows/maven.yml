@@ -31,14 +31,5 @@ jobs:
       run: mvn clean install
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
-      with:
-        projectBaseDir: chamomile
-        args: >
-          -Dsonar.organization=chamomile
-          -Dsonar.projectKey=user
-          -Dsonar.sources=lib/
-          -Dsonar.test.exclusions=tests/**
-          -Dsonar.tests=tests/
-          -Dsonar.verbose=true
 
 
