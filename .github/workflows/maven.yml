@@ -2,15 +2,15 @@ name: user-chamomile
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop","feature*" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop","feature*" ]
+  workflow_dispatch:
+    branches: [ "main", "develop","feature*" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
