@@ -23,5 +23,5 @@ jobs:
         with:
             args: >
               -Dsonar.projectKey=MariaVasquez_user-chamomile
-              -Dsonar.organization=mm.vasquez
+              -Dsonar.organization=mariavasquez
               -Dsonar.verbose=true
