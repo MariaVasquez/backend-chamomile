@@ -28,4 +28,3 @@ jobs:
             -Dsonar.sourceEncoding=UTF-8
             -Dsonar.verbose=true
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-            -Dsonar.scm.provider=git
