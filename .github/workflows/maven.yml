@@ -21,6 +21,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean install test
+      working-directory: /home/runner/work/user-chamomile/user-chamomile
 
     - name: Imprimir el directorio de trabajo
       run: pwd
@@ -35,14 +36,6 @@ jobs:
 
     - name: SonarScanner begin analysis
       run: dotnet sonarscanner begin /k:"lind-exe_Statify" /o:"lind-exe" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-
-    - name: Build and analyze
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: |
-        dotnet build /home/runner/work/user-chamomile/user-chamomile
-        dotnet test --collect "Code Coverage"
 
     - name: Analyze with SonarCloud
       uses: SonarSource/sonarcloud-github-action@master
