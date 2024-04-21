@@ -26,18 +26,5 @@ jobs:
     - name: Imprimir el directorio de trabajo
       run: pwd
 
-    - name: Analyze with SonarCloud
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      with:
-        args: >
-          -Dsonar.projectKey=MariaVasquez_user-chamomile
-          -Dsonar.organization=mariavasquez
-          -Dsonar.java.binaries=target/classes/
-          -Dsonar.sourceEncoding=UTF-8
-          -Dsonar.verbose=true
-          -Dsonar.coverage.jacoco.xmlReportPaths=
-              /home/runner/work/user-chamomile/user-chamomile/target/site/jacoco-aggregate/jacoco.xml
-              sonar:sonar -Pcoverage
+    - name: Build and analyze with SonarCloud
+      run: mvn clean verify sonar:sonar
