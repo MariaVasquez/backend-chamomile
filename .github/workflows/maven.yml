@@ -30,23 +30,17 @@ jobs:
     - name: Install dotnet-sonarscanner
       run: dotnet tool install dotnet-sonarscanner --global
 
-    - name: Print PATH
-      run: echo $PATH
-
     - name: SonarScanner begin analysis
       run: dotnet sonarscanner begin /k:"lind-exe_Statify" /o:"lind-exe" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-
 
     - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        .\.sonar\scanner\dotnet-sonarscanner begin /k:"lind-exe_Statify" /o:"lind-exe" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
         dotnet build --no-incremental
-        dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml" 
         dotnet test --collect "Code Coverage"
-        .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
     - name: Analyze with SonarCloud
       uses: SonarSource/sonarcloud-github-action@master
