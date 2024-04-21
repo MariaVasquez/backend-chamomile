@@ -20,7 +20,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean install test
+      run: mvn clean verify sonar:sonar
       working-directory: /home/runner/work/user-chamomile/user-chamomile
 
     - name: Imprimir el directorio de trabajo
