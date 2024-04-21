@@ -30,8 +30,14 @@ jobs:
     - name: Install dotnet-sonarscanner
       run: dotnet tool install dotnet-sonarscanner --global
 
-    - name: Verify dotnet-sonarscanner installation
-      run: dotnet sonarscanner --version
+    - name: Print PATH
+      run: echo $PATH
+
+    - name: SonarScanner begin analysis
+      run: dotnet sonarscanner begin /k:"lind-exe_Statify" /o:"lind-exe" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+
+    - name: SonarScanner end analysis
+      run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
     - name: Build and analyze
       env:
