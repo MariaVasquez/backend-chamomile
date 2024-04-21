@@ -20,22 +20,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean verify sonar:sonar
+      run: mvn clean install
       working-directory: /home/runner/work/user-chamomile/user-chamomile
 
     - name: Imprimir el directorio de trabajo
       run: pwd
-
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-
-    - name: Install dotnet-sonarscanner
-      run: dotnet tool install dotnet-sonarscanner --global
-
-    - name: SonarScanner begin analysis
-      run: dotnet sonarscanner begin /k:"lind-exe_Statify" /o:"lind-exe" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
     - name: Analyze with SonarCloud
       uses: SonarSource/sonarcloud-github-action@master
