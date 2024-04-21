@@ -41,7 +41,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        dotnet build --no-incremental
+        dotnet build /home/runner/work/user-chamomile/user-chamomile
         dotnet test --collect "Code Coverage"
 
     - name: Analyze with SonarCloud
@@ -57,5 +57,5 @@ jobs:
           -Dsonar.sourceEncoding=UTF-8
           -Dsonar.verbose=true
           -Dsonar.coverage.jacoco.xmlReportPaths=
-              target/site/jacoco-aggregate/jacoco.xml
+              /home/runner/work/user-chamomile/user-chamomile/target/site/jacoco-aggregate/jacoco.xml
               sonar:sonar -Pcoverage
