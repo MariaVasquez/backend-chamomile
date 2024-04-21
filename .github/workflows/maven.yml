@@ -27,4 +27,4 @@ jobs:
       run: pwd
 
     - name: Build and analyze with SonarCloud
-      run: mvn clean verify sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      run: mvn clean verify sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -sonar.token=${{ secrets.GITHUB_TOKEN }}
