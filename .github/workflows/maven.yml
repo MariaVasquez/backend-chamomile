@@ -22,6 +22,17 @@ jobs:
     - name: Build with Maven
       run: mvn clean install test
 
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Install dotnet-sonarscanner
+      run: dotnet tool install dotnet-sonarscanner --global
+
+    - name: Verify dotnet-sonarscanner installation
+      run: dotnet sonarscanner --version
+
     - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,3 +43,19 @@ jobs:
         dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml" 
         dotnet test --collect "Code Coverage"
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+    - name: Analyze with SonarCloud
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.projectKey=MariaVasquez_user-chamomile
+          -Dsonar.organization=mariavasquez
+          -Dsonar.java.binaries=target/classes/
+          -Dsonar.sourceEncoding=UTF-8
+          -Dsonar.verbose=true
+          -Dsonar.coverage.jacoco.xmlReportPaths=
+              target/site/jacoco-aggregate/jacoco.xml
+              sonar:sonar -Pcoverage
