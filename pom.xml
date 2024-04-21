@@ -25,6 +25,11 @@
             ${project.basedir}/report-aggregate/target/site/
             jacoco-aggregate/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>mariavasquez</sonar.organization>
+        <sonar.projectKey>MariaVasquez_user-chamomile</sonar.projectKey>
+        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+        <sonar.verbose>true</sonar.verbose>
     </properties>
     <dependencies>
         <dependency>
