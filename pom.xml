@@ -30,8 +30,6 @@
         <sonar.projectKey>MariaVasquez_user-chamomile</sonar.projectKey>
         <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
         <sonar.verbose>true</sonar.verbose>
-        <!--suppress UnresolvedMavenProperty -->
-        <sonar.login>${env.SONAR_TOKEN}</sonar.login>
     </properties>
     <dependencies>
         <dependency>
