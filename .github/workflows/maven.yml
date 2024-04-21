@@ -22,6 +22,9 @@ jobs:
     - name: Build with Maven
       run: mvn clean install test
 
+    - name: Imprimir el directorio de trabajo
+      run: pwd
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -40,7 +43,6 @@ jobs:
       run: |
         dotnet build --no-incremental
         dotnet test --collect "Code Coverage"
-        dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
     - name: Analyze with SonarCloud
       uses: SonarSource/sonarcloud-github-action@master
