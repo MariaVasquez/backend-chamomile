@@ -14,11 +14,19 @@
     <name>user-chamomile</name>
     <description>user-chamomile</description>
     <properties>
+        <name>User</name>
+        <description>Administrator user</description>
         <java.version>21</java.version>
         <sonar.language>java</sonar.language>
         <sonar.sources>src/main/java</sonar.sources>
         <sonar.tests>src/test/java</sonar.tests>
         <sonar.java.binaries>target/classes</sonar.java.binaries>
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>mariavasquez</sonar.organization>
+        <sonar.projectKey>MariaVasquez_user-chamomile</sonar.projectKey>
+        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+        <sonar.verbose>true</sonar.verbose>
     </properties>
     <dependencies>
         <dependency>
@@ -40,6 +48,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -93,6 +105,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -125,6 +143,7 @@
             </activation>
             <build>
                 <plugins>
+
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
@@ -141,6 +160,11 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
+                                <configuration>
+                                    <formats>
+                                        <format>XML</format>
+                                    </formats>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>post-unit-test</id>
@@ -149,8 +173,11 @@
                                     <goal>report</goal>
                                 </goals>
                                 <configuration>
-                                    <dataFile>target/jacoco.exec</dataFile>
-                                    <outputDirectory>target/report</outputDirectory>
+                                    <outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+                                    <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                                    <formats>
+                                        <format>XML</format>
+                                    </formats>
                                 </configuration>
                             </execution>
                         </executions>
