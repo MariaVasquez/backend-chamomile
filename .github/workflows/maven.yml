@@ -25,6 +25,6 @@ jobs:
 
     - name: Imprimir el directorio de trabajo
       run: pwd
-
+ 
     - name: Build and analyze with SonarCloud
       run: mvn clean verify sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -sonar.token=${{ secrets.GITHUB_TOKEN }}
