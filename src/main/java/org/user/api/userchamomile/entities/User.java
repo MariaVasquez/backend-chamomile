@@ -22,7 +22,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.user.api.userchamomile.validation.ExistByUsername;
+import org.user.api.userchamomile.validation.ExistsByUsername;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ExistByUsername
+    @ExistsByUsername
     @Column(unique = true)
     @NotBlank
     @Size(min = 4, max = 12)
