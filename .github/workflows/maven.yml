@@ -9,6 +9,22 @@ on:
     branches: [ "main", "develop","feature*" ]
 
 jobs:
+  display-variables:
+    name: ${{ vars.JOB_NAME }}
+    if: ${{ vars.USE_VARIABLES == 'true' }}
+    runs-on: ${{ vars.RUNNER }}
+    environment: ${{ vars.ENVIRONMENT_STAGE }}
+    steps:
+    - name: Use variables
+      run: |
+        echo "datasource variable : $DATASOURCE_BD"
+        echo "user variable : $USER_BD"
+        echo "password variable : $PASSWORD_BD"
+        echo "variable from shell environment : $env_var"
+      env:
+        REPOSITORY_VAR: ${{ vars.DATASOURCE_BD }}
+        ORGANIZATION_VAR: ${{ vars.USER_BD }}
+        OVERRIDE_VAR: ${{ vars.PASSWORD_BD }}
   build:
     runs-on: ubuntu-latest
     steps:
@@ -19,16 +35,6 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    - name: Use variables
-      run: |
-        echo "repository variable : $DATASOURCE_BD"
-        echo "organization variable : $USER_BD"
-        echo "overridden variable : $PASSWORD_BD"
-        echo "variable from shell environment : $env_var"
-      env:
-        DATASOURCE_BD: ${{ vars.DATASOURCE_BD }}
-        USER_BD: ${{ vars.USER_BD }}
-        PASSWORD_BD: ${{ vars.PASSWORD_BD }}
         
     - name: Build with Maven
       run: mvn clean install
@@ -50,3 +56,5 @@ jobs:
  
     - name: Build and analyze with SonarCloud
       run: mvn clean verify sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+
+      
