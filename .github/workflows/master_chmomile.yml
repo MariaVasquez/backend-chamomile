@@ -30,7 +30,7 @@ jobs:
       working-directory: /home/runner/work/user-chamomile/user-chamomile
 
     - name: Upload Artifacct for deployment job
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: springboot-example
         path: ${{ github.workspace }}/target/*.jar
