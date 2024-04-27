@@ -65,7 +65,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: user-chamomile-0.0.1
+          name: chmomile
       
       - name: Login to Azure
         uses: azure/login@v1
