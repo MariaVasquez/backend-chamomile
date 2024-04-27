@@ -9,22 +9,6 @@ on:
     branches: [ "main", "develop","feature*" ]
 
 jobs:
-  display-variables:
-    name: ${{ vars.JOB_NAME }}
-    if: ${{ vars.USE_VARIABLES == 'true' }}
-    runs-on: ${{ vars.RUNNER }}
-    environment: ${{ vars.ENVIRONMENT_STAGE }}
-    steps:
-    - name: Use variables
-      run: |
-        echo "datasource variable : $DATASOURCE_BD"
-        echo "user variable : $USER_BD"
-        echo "password variable : $PASSWORD_BD"
-        echo "variable from shell environment : $env_var"
-      env:
-        REPOSITORY_VAR: ${{ vars.DATASOURCE_BD }}
-        ORGANIZATION_VAR: ${{ vars.USER_BD }}
-        OVERRIDE_VAR: ${{ vars.PASSWORD_BD }}
   build:
     runs-on: ubuntu-latest
     steps:
@@ -37,6 +21,10 @@ jobs:
         cache: maven
         
     - name: Build with Maven
+      env:
+        DATASOURCE_BD: ${{ vars.DATASOURCE_BD }}
+        USER_BD: ${{ vars.USER_BD }}
+        PASSWORD_BD: ${{ vars.PASSWORD_BD }}
       run: mvn clean install
       working-directory: /home/runner/work/user-chamomile/user-chamomile
 
