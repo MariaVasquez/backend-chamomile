@@ -19,6 +19,17 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+    - name: Use variables
+      run: |
+        echo "repository variable : $DATASOURCE_BD"
+        echo "organization variable : $USER_BD"
+        echo "overridden variable : $PASSWORD_BD"
+        echo "variable from shell environment : $env_var"
+      env:
+        DATASOURCE_BD: ${{ vars.DATASOURCE_BD }}
+        USER_BD: ${{ vars.USER_BD }}
+        PASSWORD_BD: ${{ vars.PASSWORD_BD }}
+        
     - name: Build with Maven
       run: mvn clean install
       working-directory: /home/runner/work/user-chamomile/user-chamomile
