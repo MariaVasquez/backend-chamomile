@@ -28,6 +28,12 @@ jobs:
       run: mvn clean install
       working-directory: /home/runner/work/user-chamomile/user-chamomile
 
+    - name: Upload Artifacct for deployment job
+      uses: actions/upload-artifact@v2
+      with:
+        name: springboot-example
+        path: ${{ github.workspace }}/target/*.jar
+
     - name: Imprimir el directorio de trabajo
       run: pwd
 
@@ -44,5 +50,19 @@ jobs:
  
     - name: Build and analyze with SonarCloud
       run: mvn clean verify sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+  deploy:
+      runs-on: ubuntu-latest
+      needs: build
+      steps:
+        - name: Download Artifact from build job
+          uses: actions/download-artifact@v2
+          with:
+            name: springboot-example
+        - name: Deploy to Azure App Service
+          uses: azure/webapps-deploy@v2
+          with:
+            app-name: chmomile
+            publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+            package: '*.jar'
 
       
