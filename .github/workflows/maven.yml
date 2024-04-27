@@ -19,7 +19,12 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+        
     - name: Build with Maven
+      env:
+        DATASOURCE_BD: ${{ vars.DATASOURCE_BD }}
+        USER_BD: ${{ vars.USER_BD }}
+        PASSWORD_BD: ${{ vars.PASSWORD_BD }}
       run: mvn clean install
       working-directory: /home/runner/work/user-chamomile/user-chamomile
 
@@ -39,3 +44,5 @@ jobs:
  
     - name: Build and analyze with SonarCloud
       run: mvn clean verify sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+
+      

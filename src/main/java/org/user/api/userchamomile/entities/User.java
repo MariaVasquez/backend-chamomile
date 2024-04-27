@@ -22,7 +22,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.user.api.userchamomile.validation.ExistByUsername;
+import org.user.api.userchamomile.validation.ExistsByUsername;
 
 import java.util.List;
 
@@ -37,9 +37,9 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @ExistByUsername
+    @ExistsByUsername
     @Column(unique = true)
     @NotBlank
     @Size(min = 4, max = 12)
@@ -59,12 +59,12 @@ public class User {
 
     private boolean enable;
 
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private boolean admin;
+
     @PrePersist
     public void prePersist(){
         enable = true;
     }
-
-    @Transient
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private boolean admin;
 }

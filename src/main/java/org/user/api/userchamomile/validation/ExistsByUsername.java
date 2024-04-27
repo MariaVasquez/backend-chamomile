@@ -1,19 +1,21 @@
 package org.user.api.userchamomile.validation;
 
-import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
-
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = ExistByUsernameValidation.class)
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
+
+@Documented
+@Constraint(validatedBy = ExistsByUsernameValidation.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExistByUsername {
-
-    String message() default "ya existe en la base de datos!";
+public @interface ExistsByUsername {
+    String message() default "Error en el envio de datos";
 
     Class<?>[] groups() default {};
 
