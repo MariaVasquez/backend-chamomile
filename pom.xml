@@ -172,6 +172,15 @@
                                     <formats>
                                         <format>XML</format>
                                     </formats>
+                                    <excludes>
+                                        <exclude>**/config/*</exclude>
+                                        <exclude>**/dto/*</exclude>
+                                        <exclude>**/entities/*</exclude>
+                                        <exclude>**/error/*</exclude>
+                                        <exclude>**/jwt/*</exclude>
+                                        <exclude>**/repositories/*</exclude>
+                                        <exclude>**/validations/*</exclude>
+                                    </excludes>
                                 </configuration>
                             </execution>
                         </executions>
