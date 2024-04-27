@@ -37,7 +37,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ExistsByUsername
     @Column(unique = true)
@@ -59,12 +59,12 @@ public class User {
 
     private boolean enable;
 
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private boolean admin;
+
     @PrePersist
     public void prePersist(){
         enable = true;
     }
-
-    @Transient
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private boolean admin;
 }
