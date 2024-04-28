@@ -3,18 +3,8 @@ package org.user.api.userchamomile.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -49,15 +39,29 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @NotBlank
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
+
+    @NotBlank
+    private String phoneNumber;
+
+    private boolean enabled;
+
     @JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns= @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"users_id","roles_id"})})
     private List<Role> roles;
 
-    private boolean enabled;
+    @JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Address> addresses;
+
 
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
