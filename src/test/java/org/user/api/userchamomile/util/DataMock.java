@@ -25,6 +25,6 @@ public class DataMock {
                 .password("123")
                 .roles(List.of(newRoleUser(), newRoleAdmin()))
                 .admin(true)
-                .enable(true).build());
+                .enabled(true).build());
     }
 }

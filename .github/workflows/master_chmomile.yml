@@ -24,8 +24,8 @@ jobs:
     - name: Build with Maven
       env:
         DATASOURCE_BD: ${{ vars.DATASOURCE_BD }}
-        USER_BD: ${{ vars.USER_BD }}
-        PASSWORD_BD: ${{ vars.PASSWORD_BD }}
+        USER_BD: ${{ secrets.USER_BD }}
+        PASSWORD_BD: ${{ secrets.PASSWORD_BD }}
       run: mvn clean install
       working-directory: /home/runner/work/user-chamomile/user-chamomile
 
