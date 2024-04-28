@@ -2,6 +2,8 @@ package org.user.api.userchamomile.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,5 +41,11 @@ public class JwtUtils {
             logger.error("Error parsing authorities claims", e);
             throw new CustomException(ResponseCode.LCO000, ResponseCode.LCO000.getHtmlMessage());
         }
+    }
+
+    public static String readJWT(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        String jws = token.substring(7);
+        return Jwts.parser().verifyWith(Constants.SECRET_KEY).build().parseSignedClaims(jws).getPayload().getSubject();
     }
 }

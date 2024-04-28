@@ -15,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -44,14 +45,19 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests( (authz) -> authz
+        return http.authorizeHttpRequests((authz) -> authz
                         .requestMatchers(HttpMethod.GET, "/api/users").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/address").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/address/by-id").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/address/register").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/address/edit").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/address/delete").permitAll()
                         .anyRequest().authenticated())
+                .addFilterBefore(new JWTValidationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTValidationFilter(authenticationManager()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(c-> c.configurationSource(corsConfigurationSource()))
+                .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
 
@@ -70,7 +76,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    FilterRegistrationBean<CorsFilter> corsFilter(){
+    FilterRegistrationBean<CorsFilter> corsFilter() {
         CorsFilter corsFilter = new CorsFilter(corsConfigurationSource());
         FilterRegistrationBean<CorsFilter> corsBean = new FilterRegistrationBean<>(corsFilter);
         corsBean.setOrder(Ordered.HIGHEST_PRECEDENCE);

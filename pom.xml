@@ -97,7 +97,7 @@
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
+            <artifactId>jjwt-jackson</artifactId>
             <version>0.12.5</version>
             <scope>runtime</scope>
         </dependency>
@@ -177,7 +177,6 @@
                                         <exclude>**/dto/*</exclude>
                                         <exclude>**/entities/*</exclude>
                                         <exclude>**/error/*</exclude>
-                                        <exclude>**/jwt/*</exclude>
                                         <exclude>**/repositories/*</exclude>
                                         <exclude>**/validations/*</exclude>
                                     </excludes>
