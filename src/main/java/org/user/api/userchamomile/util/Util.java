@@ -1,14 +1,11 @@
 package org.user.api.userchamomile.util;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.user.api.userchamomile.dto.GenericResponseDto;
 import org.user.api.userchamomile.error.FieldError;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Util {
 
