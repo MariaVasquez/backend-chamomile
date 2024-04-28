@@ -57,7 +57,7 @@ public class User {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"users_id","roles_id"})})
     private List<Role> roles;
 
-    private boolean enable;
+    private boolean enabled;
 
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -65,6 +65,6 @@ public class User {
 
     @PrePersist
     public void prePersist(){
-        enable = true;
+        enabled = true;
     }
 }
