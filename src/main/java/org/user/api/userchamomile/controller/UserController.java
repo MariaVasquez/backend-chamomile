@@ -31,6 +31,12 @@ public class UserController {
         return service.findAll();
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/by-username")
+    public GenericResponseDto<User> getUser(@RequestParam String username) {
+        return new GenericResponseDto<>(ResponseCode.LCO001, ResponseCode.LCO001.getHtmlMessage(),service.findByUsername(username));
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public GenericResponseDto<?> create(@Valid @RequestBody User user, BindingResult result) {
