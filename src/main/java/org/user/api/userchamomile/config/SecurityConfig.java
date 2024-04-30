@@ -45,17 +45,21 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests((authz) -> authz
-                        .requestMatchers(HttpMethod.GET, "/api/users").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/address").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/address/by-id").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/address/register").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/address/edit").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/api/address/delete").permitAll()
-                        .anyRequest().authenticated())
+        return http.authorizeHttpRequests((authz) ->
+                        authz
+                                // Reglas de autorización
+                                .requestMatchers(HttpMethod.GET, "/api/users").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/address").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/address/by-id").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/address/register").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/api/address/edit").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/api/address/delete").permitAll()
+                                .anyRequest().authenticated())
+                // Filtros de seguridad
                 .addFilterBefore(new JWTValidationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                // Configuraciones adicionales
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

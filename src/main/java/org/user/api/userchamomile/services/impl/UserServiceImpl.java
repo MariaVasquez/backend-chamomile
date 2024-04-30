@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.user.api.userchamomile.entities.Role;
 import org.user.api.userchamomile.entities.User;
+import org.user.api.userchamomile.error.CustomException;
 import org.user.api.userchamomile.repositories.RoleRepository;
 import org.user.api.userchamomile.repositories.UserRepository;
 import org.user.api.userchamomile.services.UserService;
+import org.user.api.userchamomile.util.ResponseCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,5 +53,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsernameEquals(username);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(()-> new CustomException(ResponseCode.LCO003, ResponseCode.LCO003.getHtmlMessage()));
     }
 }
